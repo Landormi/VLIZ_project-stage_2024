@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/UVP5/1/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "V*10^5"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "Voltage expressed as volts scaled by multiplying by one hundred thousand."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Volts multiplied by 100000"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

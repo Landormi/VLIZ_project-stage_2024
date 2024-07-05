@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/USTU/3/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "NTU"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "Standardised scale for nephelometric measurement of turbidity calibrated against formazine solutions of different concentration and measured using a white light source at a 90 degree detection angle. Earlier measurements of turbidity tended to use NTU (sometimes also labelled STU or FTU) as the unit regardless of the measurement method."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Nephelometric Turbidity Units"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

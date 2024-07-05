@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/UYAD/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "AD"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "A calendar year after the origin of the Gregorian calendar."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Gregorian calendar years anno Domini"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

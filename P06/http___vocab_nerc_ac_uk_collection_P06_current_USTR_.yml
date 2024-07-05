@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/USTR/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "sr"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "The steradian is the SI unit of solid angle. It is used to describe two-dimensional angular spans in three-dimensional space, analogous to the way in which the radian describes angles in a plane."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Steradians"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

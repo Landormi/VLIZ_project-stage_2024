@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/UPPM/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "ppm"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "Proportion of one part in 10^6 by weight, volume or amount (i.e. moles).  Milligrams/kilogram is a more explicit alternative for part per million by weight."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Parts per million"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

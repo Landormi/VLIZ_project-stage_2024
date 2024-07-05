@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/UYMD/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "yyyymmdd"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "A date according to the Gregorian Calendar expressed as an 8-byte string with the year in bytes 1-4, month within year in bytes 5-6 and day within month in bytes 7-8."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Gregorian date (yyyymmdd)"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

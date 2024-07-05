@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/UMGM/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "umol/mg/min"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "10^-6 of the SI unit of quantity of matter (the mole) per milligram of a substance per minute. Used to express the activity of enzymes by giving the quantity of product formed by the enzyme (in micromoles), per mass of total protein (milligrams) in a given amount of time (minute)."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Micromoles per milligram per minute"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

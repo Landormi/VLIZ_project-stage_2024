@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/SQUM/1/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "um^2"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "A unit of area defined as a square of one micrometre long on each side. It has a dimension of L2 where L is length. It can be converted to the corresponding standard SI unit area by multiplying its value by a factor of 10^-12."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Square micrometres"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

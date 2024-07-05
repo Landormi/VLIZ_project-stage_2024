@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/TISO/2/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "ISO8601"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "String corresponding to any legal ISO8601 format mask. This is the concatenation of 'yyyy-mm-dd' with any part of 'Thh:mm:ss.sss' (including none) depending on precision and an optional time zone indicator 'Zxxx' where xxx is the offset from UT."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "ISO8601"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

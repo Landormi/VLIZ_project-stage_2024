@@ -1,0 +1,27 @@
+
+uri: "http://vocab.nerc.ac.uk/collection/P06/current/CUPL/1/"
+labels:
+  - name: "altLabel"
+    path: "http://www.w3.org/2004/02/skos/core#altLabel"
+    original: "um^3/l"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "definition"
+    path: "http://www.w3.org/2004/02/skos/core#definition"
+    original: "A unit of volume fraction equal to one part in 10^18 over one part in 10^3 of the SI unit of volume (cubic metre). Used to express the biovolume of cells in suspension in a liquid."
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""
+  - name: "prefLabel"
+    path: "http://www.w3.org/2004/02/skos/core#prefLabel"
+    original: "Cubic micrometres per litre"
+    translations:
+      - fr: ""
+      - es: ""
+      - de: ""
+      - it: ""

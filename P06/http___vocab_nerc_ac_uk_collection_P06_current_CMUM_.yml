@@ -5,7 +5,7 @@ labels:
     path: "http://www.w3.org/2004/02/skos/core#altLabel"
     original: "umol/m^3"
     translations:
-      - fr: ""
+      - fr: "non"
       - es: ""
       - de: ""
       - it: ""

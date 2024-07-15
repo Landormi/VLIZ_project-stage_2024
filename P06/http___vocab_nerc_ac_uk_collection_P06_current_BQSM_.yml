@@ -5,7 +5,7 @@ labels:
     path: "http://www.w3.org/2004/02/skos/core#altLabel"
     original: "Bq/m^2"
     translations:
-      - fr: ""
+      - fr: "oui"
       - es: ""
       - de: ""
       - it: ""

@@ -6,7 +6,7 @@ labels:
     translations:
       - fr: "1"
       - es: "2"
-      - de: ""
+      - de: "3"
       - it: ""
   - name: definition
     path: http://www.w3.org/2004/02/skos/core#definition

@@ -5,7 +5,7 @@ labels:
     original: A
     translations:
       - fr: "1"
-      - es: ""
+      - es: "2"
       - de: ""
       - it: ""
   - name: definition

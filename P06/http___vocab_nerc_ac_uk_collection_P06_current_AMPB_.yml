@@ -7,7 +7,7 @@ labels:
       - fr: U/I................
       - es: "1"
       - de: "2"
-      - it: ""
+      - it: "6"
   - name: definition
     path: http://www.w3.org/2004/02/skos/core#definition
     original: The SI base unit of electric current equal to a flow of one coulomb

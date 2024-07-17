@@ -5,7 +5,7 @@ labels:
     original: A
     translations:
       - fr: "5"
-      - es: "2"
+      - es: test es??
       - de: "3"
       - it: "4"
   - name: definition
@@ -22,6 +22,6 @@ labels:
     original: Amperes
     translations:
       - fr: oui
-      - es: ""
+      - es: non
       - de: ""
       - it: ""

@@ -1,0 +1,27 @@
+batch-size: 32
+target_languages:
+  - fr
+  - es
+  - de
+  - it
+sources:
+  - name: P02
+    url: http://vocab.nerc.ac.uk/ldes/P02/
+    language: en
+    id-path: http://www.w3.org/2004/02/skos/core#Concept
+    items:
+      - name: definition
+        path: http://www.w3.org/2004/02/skos/core#definition
+      - name: altLabel
+        path: http://www.w3.org/2004/02/skos/core#altLabel
+  - name: P06
+    url: http://vocab.nerc.ac.uk/ldes/P06/
+    language: en
+    id-path: http://www.w3.org/2004/02/skos/core#Concept
+    items:
+      - name: definition
+        path: http://www.w3.org/2004/02/skos/core#definition
+      - name: altLabel
+        path: http://www.w3.org/2004/02/skos/core#altLabel
+      - name: prefLabel
+        path: http://www.w3.org/2004/02/skos/core#prefLabel

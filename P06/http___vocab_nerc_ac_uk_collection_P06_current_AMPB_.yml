@@ -5,7 +5,7 @@ labels:
     original: A
     translations:
       - fr: "test fr??"
-      - es: "2"
+      - es: "1"
       - de: "3"
       - it: "4"
   - name: definition

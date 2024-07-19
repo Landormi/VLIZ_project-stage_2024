@@ -4,7 +4,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#altLabel
     original: A
     translations:
-      - fr: test fr??
+      - fr: test in test
       - es: test es??
       - de: "3"
       - it: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -21,7 +21,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#prefLabel
     original: Amperes
     translations:
-      - fr: oui
+      - fr: test
       - es: non
       - de: ""
       - it: ""

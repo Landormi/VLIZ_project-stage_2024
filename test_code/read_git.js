@@ -356,7 +356,7 @@ async function main() {
         // await testGetFileContent(0,octokit);
         // await testGetFilesContent();
         // await testUpdateFileContent(octokit);
-        await testCommitRequest(octokit);
+        await testCommitRequest(octokit); 
         // await testGetListPullRequest(octokit);
         // await testGetListCommits(octokit);
         

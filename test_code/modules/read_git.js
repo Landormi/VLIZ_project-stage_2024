@@ -7,16 +7,13 @@ import { parse, stringify } from "yaml";
 
 // const cacheList = new NodeCache();
 //--------------------------Test const-------------------------------//
-const tocken = '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'
 const owner = "Landormi";
 const repo = "VLIZ_project-stage_2024";
 const path = "P06";
-
-
+const branchName = "The_Branch";
 //-------------------------------------------------------------------//
 
 let nbrequest = 0;
-
 
 //-------------------------------------------------------------------//
 
@@ -25,13 +22,14 @@ async function listFilesInDirectory(owner, repo, directoryPath, octokit) {
         const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
             owner,
             repo,
-            path: directoryPath
+            path: directoryPath,
+            ref: branchName
         });
         nbrequest ++;
 
         if (Array.isArray(response.data)) {
             const files = response.data.filter(item => item.type === 'file' && item.name.endsWith('.yml'));
-            // console.log(response.data[1]);
+            // console.log(response.data);
             return files;
         } else {
             console.error('Failed to list files:', response.status, response.statusText);
@@ -48,9 +46,11 @@ async function fetchFileContent(owner, repo, filePath, octokit) {
         const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
             owner,
             repo,
-            path: filePath
+            path: filePath,
+            ref: branchName
         });
         nbrequest ++;
+        // console.log(response);
         
         if (response.status === 200) {
             const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
@@ -67,9 +67,9 @@ async function fetchFileContent(owner, repo, filePath, octokit) {
 
 function updateTranslations(yamlContents, translations, language) {
     const contentObj = parse(yamlContents.content);
-    // console.log(contentObj)
-
+    
     contentObj.labels.forEach(label => {
+        // console.log(label)
         const translationKey = label.name;
         if (translations.hasOwnProperty(translationKey)) {
             const translationObj = label.translations.find(t => t.hasOwnProperty(language));
@@ -82,112 +82,59 @@ function updateTranslations(yamlContents, translations, language) {
     });
     // console.log(contentObj)
 
-    yamlContents.content = stringify(contentObj);
+    yamlContents.content = stringify(contentObj,{ quotingType: '"', prettyErrors: true });
     return yamlContents;
 }
 
-async function putFile(updatedYamlContents, filePath, octokit){
-    try{
-        const response = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-            owner,
-            repo,
-            path: filePath,
-            message: 'Update translations for YAML file',
-            content: Buffer.from(updatedYamlContents.content).toString('base64'),
-            sha: updatedYamlContents.sha
-        });
-        nbrequest ++;
-        console.log('YAML file updated successfully:', response.status);
-    } catch (error) {
-        console.error('Error modifying YAML file:', error.message);
-    }
-}
-
-async function findBranch(owner, repo, branchName, octokit) {
-    try {
-        const branchResponse = await octokit.request('GET /repos/{owner}/{repo}/git/ref/heads/{branch}', {
-            owner,
-            repo,
-            branch: branchName
-        });
-        nbrequest++;
-        const branchSha = branchResponse.data.object.sha;
-        return 
-
-    } catch (error) {
-        console.error('Error creating branch:', error.message);
-
-        if (error.response) {
-            console.error('Error details:', error.response.data);
-            console.error('Status:', error.response.status);
-            console.error('Headers:', error.response.headers);
-        }
-    }
-}
-
-async function createBranch(owner, repo, branchName, sourceBranch, octokit) {
-    try {
-        const sourceBranchResponse = await octokit.request('GET /repos/{owner}/{repo}/git/ref/heads/{branch}', {
-            owner,
-            repo,
-            branch: sourceBranch
-        });
-        nbrequest++;
-        const sourceSha = sourceBranchResponse.data.object.sha;
-
-        console.log("Source branch response:", sourceBranchResponse.data);
-        console.log("owner:", owner);
-        console.log("repo:", repo);
-        console.log("ref:", `refs/heads/${branchName}`);
-        console.log("sha:", sourceSha);
-
-        const createBranchResponse = await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-            owner,
-            repo,
-            ref: `refs/heads/${branchName}`,
-            sha: sourceSha,
-            headers :{
-                'Content-Type':'application/json',
-                'Authorization': 'token %s' % octokit.auth,
-            }
-        });
-        nbrequest++;
-        if(createBranchResponse){
-            console.log("Branch created successfully!");
-            console.log(createBranchResponse)
-        }
-
-    } catch (error) {
-        console.error('Error creating branch:', error.message);
-
-        if (error.response) {
-            console.error('Error details:', error.response.data);
-            console.error('Status:', error.response.status);
-            console.error('Headers:', error.response.headers);
-        }
-    }
-}
-
-
 async function commitChanges(owner, repo, branchName, filePath, updatedContent, sha, octokit) {
+    // try {
+    //     const branch = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
+    //         owner,
+    //         repo,
+    //         branch: branchName
+    //     });
+    //     console.log(`Branch found: ${branch.data.name}`);
+    // } catch (error) {
+    //     console.error(`Branch not found: ${error.message}`);
+    // }
+    // try {
+    //     const file = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    //         owner,
+    //         repo,
+    //         path: 'P06/http___vocab_nerc_ac_uk_collection_P06_current_AMPB_.yml',
+    //         ref: branchName
+    //     });
+    //     console.log(`File found: ${file.data.path}`);
+    // } catch (error) {
+    //     console.error(`File not found: ${error.message}`);
+    // }
     try {
+        // console.log(owner);
+        // console.log(repo);
+        // console.log(branchName);
+        // console.log(filePath);
+        // console.log(updatedContent);
+        // console.log(sha);
         const response = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
             owner,
             repo,
             path: filePath,
             message: `Update translations for ${filePath}`,
-            content: Buffer.from(updatedContent).toString('base64'),
+            // content: Buffer.from(updatedContent).toString('base64'),
+            content: "dXJpOiBodHRwOi8vdm9jYWIubmVyYy5hYy51ay9jb2xsZWN0aW9uL1AwNi9jdXJyZW50L0FNUEIvMS8KbGFiZWxzOgogIC0gbmFtZTogYWx0TGFiZWwKICAgIHBhdGg6IGh0dHA6Ly93d3cudzMub3JnLzIwMDQvMDIvc2tvcy9jb3JlI2FsdExhYmVsCiAgICBvcmlnaW5hbDogQQogICAgdHJhbnNsYXRpb25zOgogICAgICAtIGZyOiB0ZXN0IGluIHRlc3QKICAgICAgLSBlczogdGVzdCBlcz8/CiAgICAgIC0gZGU6ICIzIgogICAgICAtIGl0OiBBYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWEKICAtIG5hbWU6IGRlZmluaXRpb24KICAgIHBhdGg6IGh0dHA6Ly93d3cudzMub3JnLzIwMDQvMDIvc2tvcy9jb3JlI2RlZmluaXRpb24KICAgIG9yaWdpbmFsOiBUaGUgU0kgYmFzZSB1bml0IG9mIGVsZWN0cmljIGN1cnJlbnQgZXF1YWwgdG8gYSBmbG93IG9mIG9uZSBjb3Vsb21iCiAgICAgIHBlciBzZWNvbmQuCiAgICB0cmFuc2xhdGlvbnM6CiAgICAgIC0gZnI6ICIiCiAgICAgIC0gZXM6ICIiCiAgICAgIC0gZGU6ICIiCiAgICAgIC0gaXQ6ICIiCiAgLSBuYW1lOiBwcmVmTGFiZWwKICAgIHBhdGg6IGh0dHA6Ly93d3cudzMub3JnLzIwMDQvMDIvc2tvcy9jb3JlI3ByZWZMYWJlbAogICAgb3JpZ2luYWw6IEFtcGVyZXMKICAgIHRyYW5zbGF0aW9uczoKICAgICAgLSBmcjogcHBwCiAgICAgIC0gZXM6IG5vbgogICAgICAtIGRlOiAiIgogICAgICAtIGl0OiAiIgo=",
             sha,
             branch: branchName,
-            // headers :{
-            //     'Content-Type':'application/json',
-            //     'Authorization': 'token %s' % octokit.auth,
-            // }
+            headers :{
+                'Content-Type':'application/json',
+                'Authorization': 'token %s' % octokit.auth,
+            }
         });
+        console.log(response);
         nbrequest ++;
         return response.data.commit.sha;
     } catch (error) {
         console.error('Error committing changes:', error.message);
+        console.error('Error committing changes:', error);
         return null;
     }
 }
@@ -213,7 +160,8 @@ async function listPullRequest(owner, repo, octokit){
     try {
         const response = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
             owner,
-            repo
+            repo,
+            branch: branchName
         });
         nbrequest ++;
         return response.data;
@@ -224,10 +172,102 @@ async function listPullRequest(owner, repo, octokit){
     }
 }
 
+async function getLastCommitDateInMain(owner, repo, filePath, octokit) {
+    try {
+        const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+            owner,
+            repo,
+            path: filePath,
+            sha: 'main',
+            per_page: 1
+        });
+        nbrequest++;
+        if (response.status === 200 && response.data.length > 0) {
+            return response.data[0].commit.committer.date;
+        } else {
+            console.error('Failed to retrieve last commit date in main:', response.status, response.statusText);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error retrieving last commit date in main:', error.message);
+        return null;
+    }
+}
 
-async function testGetFilesDirectory() {
-    const files = await listFilesInDirectory(owner, repo, path);
-    console.log(files);
+async function getCommitsInBranch(owner, repo, filePath, branchName, octokit) {
+    try {
+        const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+            owner,
+            repo,
+            path: filePath,
+            sha: branchName
+        });
+        nbrequest++;
+        if (response.status === 200) {
+            // console.log(response.data);
+            return response.data;
+        } else {
+            console.error('Failed to retrieve commits in branch:', response.status, response.statusText);
+            return [];
+        }
+    } catch (error) {
+        console.error('Error retrieving commits in branch:', error.message);
+        return [];
+    }
+}
+
+function filterCommitsByDate(commits, date) {
+    const commit = commits.filter(commit => new Date(commit.commit.committer.date).setHours(0, 0, 0, 0) >= new Date(date).setHours(0, 0, 0, 0));
+    // console.log(commits);
+    return commit;
+}
+
+async function getCommitChanges(owner, repo, commitSha, octokit) {
+    try {
+        const response = await octokit.request('GET /repos/{owner}/{repo}/commits/{commit_sha}', {
+            owner,
+            repo,
+            commit_sha: commitSha
+        });
+        nbrequest++;
+        if (response.status === 200) {
+            console.log(response.data.files)
+            return response.data.files;
+        } else {
+            console.error('Failed to retrieve commit changes:', response.status, response.statusText);
+            return [];
+        }
+    } catch (error) {
+        console.error('Error retrieving commit changes:', error.message);
+        return [];
+    }
+}
+
+async function getRecentCommitChanges(owner, repo, filePath, branchName, octokit) {
+    const lastMainCommitDate = await getLastCommitDateInMain(owner, repo, filePath, octokit);
+    if (!lastMainCommitDate) {
+        return [];
+    }
+
+    const branchCommits = await getCommitsInBranch(owner, repo, filePath, branchName, octokit);
+    const recentCommits = filterCommitsByDate(branchCommits, lastMainCommitDate);
+
+    const changes = [];
+    for (const commit of recentCommits) {
+        const commitChanges = await getCommitChanges(owner, repo, commit.sha, octokit);
+        changes.push({
+            sha: commit.sha,
+            date: commit.commit.committer.date,
+            files: commitChanges
+        });
+    }
+    return changes;
+}
+
+
+async function testGetFilesDirectory(octokit) {
+    const files = await listFilesInDirectory(owner, repo, path, octokit);
+    // console.log(files);
     console.log('Nb request git : '+ nbrequest);
 }
 
@@ -246,9 +286,9 @@ async function testGetFilesContent() {
     console.log('Nb request git : '+ nbrequest);
 }
 
-async function testUpdateFileContent() {
-    const files = await listFilesInDirectory(owner, repo, path);
-    const yamlContents = await fetchFileContent(owner, repo, files[0].path);
+async function testUpdateFileContent(octokit) {
+    const files = await listFilesInDirectory(owner, repo, path,octokit);
+    const yamlContents = await fetchFileContent(owner, repo, files[0].path,octokit);
     const translations = {
         "altLabel": "Atchoum",
         "prefLabel": "Ampères"
@@ -259,85 +299,73 @@ async function testUpdateFileContent() {
     console.log('Nb request git : '+ nbrequest);
 }
 
-async function testPR(octokit) {
+async function testCommitRequest(octokit) {
     const files = await listFilesInDirectory(owner, repo, path, octokit);
-    const yamlContents = await fetchFileContent(owner, repo, files[0].path, octokit);
+    const file = files[0];
+    const yamlContents = await fetchFileContent(owner, repo, file.path, octokit);
     const translations = {
-        "altLabel": "Atchoummm2.0",
-        "prefLabel": "Ampères"
+        "altLabel": "test in test",
+        "prefLabel": "test"
     };
-    console.log(yamlContents);
+    // console.log(yamlContents);
     const updatedYamlContents = updateTranslations(yamlContents, translations, "fr")
-    console.log(updatedYamlContents);
-    
-    const branchName = `${files[0].name}-${Date.now()}`;
-    console.log(files[0].name)
+    // console.log(updatedYamlContents);
+    // console.log(file.name)
 
-    const response = await octokit.request('GET /user', {
-        headers: {
-            'Authorization': `token ${octokit.auth}`,
-            'Accept': 'application/vnd.github.v3+json'
-        }
-    });
-    const scopes = response.headers['x-oauth-scopes'];
-    console.log('Token Scopes:', scopes);
-
-    await createBranch(owner, repo, branchName, 'main', octokit);
-    await commitChanges(owner, repo, branchName, files[0].path, updatedYamlContents.content, updatedYamlContents.sha, octokit);
-    const prUrl = await createPullRequest(owner, repo, branchName, 'main', 'Update translationsssssssssssssssssss', 'This PR updates translations.', octokit);
-
-    if (prUrl) {
-        console.log('Pull request created:', prUrl);
-    }
+    // const response = await octokit.request('GET /user', {
+    //     headers: {
+    //         'Authorization': `token ${octokit.auth}`,
+    //         'Accept': 'application/vnd.github.v3+json'
+    //     }
+    // });
+    // const scopes = response.headers['x-oauth-scopes'];
+    // console.log('Token Scopes:', scopes);
+    await commitChanges(owner, repo, branchName, file.path, updatedYamlContents.content, updatedYamlContents.sha, octokit);
     console.log('Nb request git : '+ nbrequest);
 }
 
-async function testPutFileContent(){
-    const files = await listFilesInDirectory(owner, repo, path);
-    const yamlContents = await fetchFileContent(owner, repo, files[0].path);
-    const translations = {
-        "altLabel": "A",
-        "prefLabel": "Ampères"
-    };
-    const updatedYamlContents = updateTranslations(yamlContents, translations, "fr")
-    console.log(updatedYamlContents);
-    putFile(updatedYamlContents,files[0].path)
-    
-}
 
 async function testGetListPullRequest(octokit) {
     const files = await listPullRequest(owner, repo,octokit);
-    console.log(files[0]);
+    console.log(files);
+    console.log('Nb request git : '+ nbrequest);
+}
+
+async function testGetListCommits(octokit) {
+    const files = await listFilesInDirectory(owner, repo, path, octokit);
+    const file = files[0];
+    const changes = await getRecentCommitChanges(owner, repo, file.path, branchName, octokit);
+    // changes.forEach(change => {
+    //     console.log(change);
+    //     console.log("-------------------------");
+    //     // change.files.forEach(file => {
+    //     //     console.log(file);
+    //     // });
+    // });
+    // console.log(changes);
     console.log('Nb request git : '+ nbrequest);
 }
 
 async function main() {
     try {
         const octokit = new Octokit({
-            auth: "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"
+            auth: "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"
         });
         
-        // testGetFilesDirectory();
-        
-        // testGetFileContent(0,octokit);
-        // testGetFilesContent();
-        
-        // testUpdateFileContent();
-        
-        // testPutFileContent();
-        
-        testPR(octokit);
-        
-        // testGetListPullRequest(octokit);
-        
+        // await testGetFilesDirectory(octokit);
+        // await testGetFileContent(0,octokit);
+        // await testGetFilesContent();
+        // await testUpdateFileContent(octokit);
+        await testCommitRequest(octokit);
+        // await testGetListPullRequest(octokit);
+        // await testGetListCommits(octokit);
         
     } catch (error) {
         console.error('Main function error:', error.message);
     }
-    
 }
 
-// main();
 
+main();
 
-export {listFilesInDirectory, fetchFileContent, updateTranslations, createBranch, commitChanges, createPullRequest, listPullRequest};
+export {listFilesInDirectory, fetchFileContent, updateTranslations, commitChanges, createPullRequest, listPullRequest};

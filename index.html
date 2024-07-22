@@ -3,62 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub OAuth Login</title>
+    <title>GitHub Integration - Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>GitHub OAuth Login</h1>
-    <div id="content">
-        <!-- Contenu de la page pour la connexion -->
-        <p>Logging in with GitHub...</p>
-    </div>
+    <div id="app"></div>
     <script>
         const CLIENT_ID = 'Ov23lixU1XxqIib5KkT3';
-        const CLIENT_SECRET = '326909b94f082c5cda2d261f0decda36e671de4e'; // Note: This should be kept secret and managed securely.
+        const CLIENT_SECRET = '326909b94f082c5cda2d261f0decda36e671de4e';
 
-        function fetchAccessToken(code) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://github.com/login/oauth/access_token', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('Accept', 'application/json');
+        document.addEventListener("DOMContentLoaded", function() {
+            const accessToken = sessionStorage.getItem('accessToken');
+            if (accessToken) {
+                window.location.href = 'display.html';
+            } else {
+                showLogin();
+            }
+        });
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const data = JSON.parse(xhr.responseText);
-                        sessionStorage.setItem('accessToken', data.access_token);
-                        window.location.href = 'display.html';
-                    } else {
-                        document.getElementById('content').innerHTML = '<p>Error fetching access token. Please try logging in again.</p>';
-                    }
-                }
-            };
+        function showLogin() {
+            const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=write:packages%20admin:repo_hook%20repo`;
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `<a href="${githubAuthUrl}">Login with GitHub</a>`;
+        }
 
-            const body = JSON.stringify({
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
-                code: code
+        const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+        const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/access_token';
+
+        async function fetchAccessToken(code) {
+            const response = await fetch(PROXY_URL + GITHUB_OAUTH_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    client_id: CLIENT_ID,
+                    client_secret: CLIENT_SECRET,
+                    code: code
+                })
             });
 
-            xhr.send(body);
-        }
-
-        function handleLogin() {
-            // Check if there's a code in the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-
-            if (code) {
-                // If there is a code, exchange it for an access token
-                fetchAccessToken(code);
-            } else {
-                // If there's no code, initiate the GitHub OAuth flow
-                const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=repo`;
-                window.location.href = githubAuthUrl;
+            if (!response.ok) {
+                console.error('Error fetching access token:', response.statusText);
+                return;
             }
+
+            const data = await response.json();
+            
+            if (data.error) {
+                // Handle API errors
+                console.error('Error from GitHub:', data.error_description);
+                return;
+            }
+
+            sessionStorage.setItem('accessToken', data.access_token);
+            window.location.href = 'display.html';
         }
 
-        // Start handling login flow when the page loads
-        handleLogin();
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        if (code) {
+            fetchAccessToken(code);
+        }
     </script>
 </body>
 </html>

@@ -13,6 +13,7 @@
             margin: 0;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/6.1.0/superagent.min.js"></script>
 </head>
 <body>
     <div id="app"></div>
@@ -35,38 +36,27 @@
             appDiv.innerHTML = `<a href="${githubAuthUrl}">Login with GitHub</a>`;
         }
 
-        const PROXY_URL = 'https://api.allorigins.win/get?url=';
-        const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/access_token';
-
         async function fetchAccessToken(code) {
-            const response = await fetch(PROXY_URL + encodeURIComponent(GITHUB_OAUTH_URL), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
+            const self = this;
+            request
+                .post('https://github.com/login/oauth/access_token')
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json')
+                .send({
                     client_id: CLIENT_ID,
                     client_secret: CLIENT_SECRET,
                     code: code
                 })
-            });
-            console.log(response);
-            if (!response.ok) {
-                console.error('Error fetching access token:', response.statusText);
-                return;
-            }
-            
-            const data = await response.json();
-            console.log(data);
-            if (data.error) {
-                console.error('Error from GitHub:', data.error_description);
-                return;
-            }
-
-            sessionStorage.setItem('accessToken', data.access_token);
-            console.log(data.access_token);
-            // window.location.href = 'display.html';
+                .end((err, res) => {
+                    if (err) {
+                        console.error('Error fetching access token:', err);
+                        return;
+                    }
+                    const token = res.body.access_token;
+                    console.log(token);
+                    sessionStorage.setItem('accessToken', token);
+                    window.location.href = 'display.html';
+                });
         }
 
         const urlParams = new URLSearchParams(window.location.search);

@@ -4,10 +4,10 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#altLabel
     original: A
     translations:
-      - fr: "test fr??"
-      - es: "1"
+      - fr: test in test
+      - es: test es??
       - de: "3"
-      - it: "A"
+      - it: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   - name: definition
     path: http://www.w3.org/2004/02/skos/core#definition
     original: The SI base unit of electric current equal to a flow of one coulomb
@@ -21,7 +21,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#prefLabel
     original: Amperes
     translations:
-      - fr: oui
-      - es: ""
+      - fr: ppp
+      - es: non
       - de: ""
       - it: ""

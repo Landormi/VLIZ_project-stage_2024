@@ -51,23 +51,22 @@
                     code: code
                 })
             });
-
+            console.log(response);
             if (!response.ok) {
                 console.error('Error fetching access token:', response.statusText);
                 return;
             }
-
-            const data = await response.json();
             
+            const data = await response.json();
+            console.log(data);
             if (data.error) {
-                // Handle API errors
                 console.error('Error from GitHub:', data.error_description);
                 return;
             }
 
             sessionStorage.setItem('accessToken', data.access_token);
             console.log(data.access_token);
-            window.location.href = 'display.html';
+            // window.location.href = 'display.html';
         }
 
         const urlParams = new URLSearchParams(window.location.search);

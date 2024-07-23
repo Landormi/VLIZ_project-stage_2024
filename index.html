@@ -23,7 +23,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const accessToken = sessionStorage.getItem('accessToken');
             if (accessToken) {
-                window.location.href = 'display.html';
+                // window.location.href = 'display.html';
             } else {
                 showLogin();
             }
@@ -35,11 +35,11 @@
             appDiv.innerHTML = `<a href="${githubAuthUrl}">Login with GitHub</a>`;
         }
 
-        const PROXY_URL = 'https://api.allorigins.win/get?url=';
+        // const PROXY_URL = 'https://api.allorigins.win/get?url=';
         const GITHUB_OAUTH_URL = 'https://github.com/login/oauth/access_token';
 
         async function fetchAccessToken(code) {
-            const response = await fetch(PROXY_URL + encodeURIComponent(GITHUB_OAUTH_URL), {
+            const response = await fetch(GITHUB_OAUTH_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

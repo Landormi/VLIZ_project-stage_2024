@@ -1,4 +1,3 @@
 [build]
   publish = "/"
-[functions]
   functions = "test_code"

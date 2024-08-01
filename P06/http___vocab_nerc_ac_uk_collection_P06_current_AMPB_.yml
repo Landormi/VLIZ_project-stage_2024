@@ -4,7 +4,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#altLabel
     original: A
     translations:
-      - fr: Atchoummmmmmm
+      - fr: Atchoum
       - es: test es??
       - de: "3"
       - it: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -13,7 +13,7 @@ labels:
     original: The SI base unit of electric current equal to a flow of one coulomb
       per second.
     translations:
-      - fr: zz
+      - fr: zzkkkkkkkkk
       - es: ""
       - de: ""
       - it: ""
@@ -21,7 +21,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#prefLabel
     original: Amperes
     translations:
-      - fr: Ampères
+      - fr: Ampèreszz
       - es: non
       - de: ""
       - it: ""

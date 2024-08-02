@@ -21,7 +21,7 @@ labels:
     path: http://www.w3.org/2004/02/skos/core#prefLabel
     original: Amperes
     translations:
-      - fr: Ampères
+      - fr: Ampère
       - es: non
       - de: ""
       - it: ""

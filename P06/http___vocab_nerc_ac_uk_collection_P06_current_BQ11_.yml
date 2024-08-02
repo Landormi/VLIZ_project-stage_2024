@@ -7,7 +7,7 @@ labels:
       - fr: BQ
       - es: ""
       - de: ""
-      - it: ""
+      - it: BK
   - name: definition
     path: http://www.w3.org/2004/02/skos/core#definition
     original: The SI derived unit of radioactivity defined as one radioactive
@@ -24,4 +24,4 @@ labels:
       - fr: Burguer Queen
       - es: ""
       - de: ""
-      - it: ""
+      - it: Burguer King
